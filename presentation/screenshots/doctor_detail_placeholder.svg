@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="800" height="450">
+  <rect width="100%" height="100%" fill="#ffffff" rx="12"/>
+  <rect x="40" y="40" width="240" height="370" fill="#f8fafc" stroke="#e2e8f0" rx="8"/>
+  <rect x="60" y="60" width="200" height="200" fill="#e0f2fe" rx="8"/>
+  <text x="100" y="290" font-family="sans-serif" font-size="16" font-weight="bold">Fee: $120 / session</text>
+  <rect x="60" y="320" width="200" height="42" fill="#0284c7" rx="6"/>
+  <text x="95" y="347" fill="#ffffff" font-family="sans-serif" font-size="14" font-weight="bold">Book Consultation</text>
+  <rect x="310" y="40" width="450" height="370" fill="#f8fafc" stroke="#e2e8f0" rx="8"/>
+  <text x="330" y="80" font-family="sans-serif" font-size="22" font-weight="bold">Dr. Rajesh Sharma, MD</text>
+  <text x="330" y="105" font-family="sans-serif" font-size="14" fill="#0284c7">Senior Cardiologist • 15 Years Experience</text>
+  <text x="330" y="145" font-family="sans-serif" font-size="13" fill="#64748b">Board-certified specialist in interventional cardiology and preventative vascular care.</text>
+  <rect x="330" y="170" width="410" height="70" fill="#ffffff" stroke="#e2e8f0" rx="6"/>
+  <text x="345" y="195" font-family="sans-serif" font-size="13" font-weight="bold">Available Days: Mon, Wed, Fri</text>
+  <text x="345" y="220" font-family="sans-serif" font-size="13" font-weight="bold" fill="#0284c7">Slots: 09:00 AM, 10:30 AM, 02:00 PM, 04:00 PM</text>
+  <text x="330" y="275" font-family="sans-serif" font-size="15" font-weight="bold">Patient Reviews (142 Verified)</text>
+  <rect x="330" y="290" width="410" height="90" fill="#ffffff" stroke="#e2e8f0" rx="6"/>
+  <text x="345" y="320" font-family="sans-serif" font-size="12" fill="#d97706">⭐⭐⭐⭐⭐ 5.0 - Rohan K.</text>
+  <text x="345" y="345" font-family="sans-serif" font-size="12" fill="#64748b">"Exceptional diagnostics and highly compassionate consultation."</text>
+</svg>
+

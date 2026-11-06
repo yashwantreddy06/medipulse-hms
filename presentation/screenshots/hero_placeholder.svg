@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="800" height="450">
+  <rect width="100%" height="100%" fill="#f0f9ff" rx="12"/>
+  <rect x="40" y="40" width="720" height="60" fill="#0284c7" rx="8"/>
+  <text x="70" y="78" fill="#ffffff" font-family="sans-serif" font-size="20" font-weight="bold">MediPulse Healthcare Platform — Landing Page &amp; Hero Showcase</text>
+  <rect x="40" y="120" width="440" height="180" fill="#ffffff" stroke="#e2e8f0" stroke-width="2" rx="8"/>
+  <text x="60" y="160" fill="#0f172a" font-family="sans-serif" font-size="22" font-weight="bold">Consult Expert Doctors Anytime, Anywhere</text>
+  <text x="60" y="200" fill="#64748b" font-family="sans-serif" font-size="14">Connect with 50+ verified medical specialists across clinical disciplines.</text>
+  <rect x="60" y="230" width="160" height="42" fill="#0284c7" rx="6"/>
+  <text x="85" y="256" fill="#ffffff" font-family="sans-serif" font-size="14" font-weight="bold">Find Doctors</text>
+  <rect x="500" y="120" width="260" height="180" fill="#ffffff" stroke="#e2e8f0" stroke-width="2" rx="8"/>
+  <circle cx="560" cy="180" r="30" fill="#e0f2fe"/>
+  <text x="605" y="175" fill="#0f172a" font-family="sans-serif" font-size="15" font-weight="bold">Dr. Rajesh Sharma</text>
+  <text x="605" y="195" fill="#64748b" font-family="sans-serif" font-size="13">Cardiology • 15 Yrs</text>
+  <rect x="40" y="320" width="720" height="90" fill="#ffffff" stroke="#e2e8f0" stroke-width="2" rx="8"/>
+  <text x="60" y="370" fill="#0284c7" font-family="sans-serif" font-size="24" font-weight="bold">50+ Specialists  |  15k+ Happy Patients  |  99.4% Satisfaction Rate</text>
+</svg>
+
