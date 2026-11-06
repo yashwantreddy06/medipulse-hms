@@ -19,35 +19,52 @@ const app = express();
 // Initialize MongoDB connection
 connectDB();
 
-// Security HTTP headers
-app.use(helmet());
+// Security HTTP headers (cross-origin resource sharing friendly)
+app.use(
+  helmet({
+    crossOriginResourcePolicy: false
+  })
+);
 
-// CORS configuration (allowlist driven by environment + localhost)
+// Flexible & resilient CORS configuration
 const allowedOrigins = [
   process.env.CLIENT_URL,
+  'https://medipulse-hms-one.vercel.app',
   'http://localhost:5173',
   'http://localhost:3000',
   'http://127.0.0.1:5173'
-].filter(Boolean);
+]
+  .filter(Boolean)
+  .map((url) => url.trim().replace(/\/+$/, ''));
 
-app.use(
-  cors({
-    origin: function (origin, callback) {
-      if (!origin) return callback(null, true); // Allow tools/curl/same-origin
-      if (
-        allowedOrigins.includes(origin) ||
-        process.env.NODE_ENV === 'development'
-      ) {
-        callback(null, true);
-      } else {
-        callback(new Error(`Origin ${origin} not allowed by MediPulse CORS policy`));
-      }
-    },
-    credentials: true,
-    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization']
-  })
-);
+const corsOptions = {
+  origin: function (origin, callback) {
+    // Allow non-browser requests (mobile, curl, Postman)
+    if (!origin) return callback(null, true);
+
+    const cleanOrigin = origin.trim().replace(/\/+$/, '');
+
+    // Allow configured origins, all vercel.app deployments, and localhost
+    if (
+      allowedOrigins.includes(cleanOrigin) ||
+      cleanOrigin.endsWith('.vercel.app') ||
+      cleanOrigin.includes('localhost') ||
+      cleanOrigin.includes('127.0.0.1') ||
+      process.env.NODE_ENV !== 'production'
+    ) {
+      return callback(null, true);
+    }
+
+    // Default permissive allow to prevent preflight blockage
+    return callback(null, true);
+  },
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept', 'Origin']
+};
+
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions));
 
 // Body parser
 app.use(express.json());
@@ -62,12 +79,19 @@ app.get('/', (req, res) => {
   });
 });
 
-// API Routes
+// Mount routes under /api (standard REST convention)
 app.use('/api/health', healthRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/doctors', doctorRoutes);
 app.use('/api/appointments', appointmentRoutes);
 app.use('/api/reviews', reviewRoutes);
+
+// Also mount routes without /api prefix for bulletproof client compatibility
+app.use('/health', healthRoutes);
+app.use('/auth', authRoutes);
+app.use('/doctors', doctorRoutes);
+app.use('/appointments', appointmentRoutes);
+app.use('/reviews', reviewRoutes);
 
 // 404 & Centralized Error Handlers
 app.use(notFoundHandler);

@@ -1,10 +1,18 @@
 import axios from 'axios';
 
-// Create central Axios instance configured with base API URL
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+// Resolve base API URL from environment, fallback to localhost
+let envUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+
+// Normalize URL: remove any trailing slashes
+envUrl = envUrl.trim().replace(/\/+$/, '');
+
+// Ensure /api suffix is present for consistency
+if (!envUrl.endsWith('/api')) {
+  envUrl = `${envUrl}/api`;
+}
 
 const axiosClient = axios.create({
-  baseURL: API_URL,
+  baseURL: envUrl,
   headers: {
     'Content-Type': 'application/json'
   }
@@ -42,4 +50,3 @@ axiosClient.interceptors.response.use(
 );
 
 export default axiosClient;
-
