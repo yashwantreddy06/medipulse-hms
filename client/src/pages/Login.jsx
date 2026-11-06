@@ -7,8 +7,6 @@ import {
   faLock,
   faEnvelope,
   faSignInAlt,
-  faUserShield,
-  faUser,
   faHeartbeat
 } from '@fortawesome/free-solid-svg-icons';
 
@@ -46,12 +44,6 @@ const Login = () => {
     } finally {
       setLoading(false);
     }
-  };
-
-  // Demo auto-fill helper
-  const handleDemoFill = (demoEmail, demoPass) => {
-    setEmail(demoEmail);
-    setPassword(demoPass);
   };
 
   return (
@@ -99,41 +91,6 @@ const Login = () => {
           <p style={{ color: 'var(--text-muted)', fontSize: '0.925rem' }}>
             Access your appointments and healthcare dashboard
           </p>
-        </div>
-
-        {/* Demo Fast-Fill Box */}
-        <div
-          style={{
-            backgroundColor: 'var(--bg-alt)',
-            borderRadius: 'var(--radius-md)',
-            padding: '1rem',
-            marginBottom: '1.75rem',
-            border: '1px dashed var(--border)'
-          }}
-        >
-          <div style={{ fontSize: '0.8rem', fontWeight: 700, color: 'var(--text-muted)', marginBottom: '0.6rem', textTransform: 'uppercase' }}>
-            Quick Demo Login Fill (Evaluator Mode):
-          </div>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.5rem' }}>
-            <button
-              type="button"
-              onClick={() => handleDemoFill('admin@medipulse.com', 'AdminPassword123')}
-              className="btn btn-secondary btn-sm"
-              style={{ fontSize: '0.785rem' }}
-            >
-              <FontAwesomeIcon icon={faUserShield} style={{ color: 'var(--accent)' }} />
-              Admin Demo
-            </button>
-            <button
-              type="button"
-              onClick={() => handleDemoFill('patient@medipulse.com', 'PatientPass123')}
-              className="btn btn-secondary btn-sm"
-              style={{ fontSize: '0.785rem' }}
-            >
-              <FontAwesomeIcon icon={faUser} style={{ color: 'var(--primary)' }} />
-              Patient Demo
-            </button>
-          </div>
         </div>
 
         {/* Login Form */}
@@ -212,4 +169,3 @@ const Login = () => {
 };
 
 export default Login;
-
