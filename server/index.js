@@ -5,6 +5,7 @@ const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
 const connectDB = require('./config/db');
+const seedDatabase = require('./utils/seeder');
 const { notFoundHandler, errorHandler } = require('./middleware/errorHandler');
 
 // Route handlers
@@ -19,7 +20,7 @@ const app = express();
 // Initialize MongoDB connection
 connectDB();
 
-// Security HTTP headers (cross-origin resource sharing friendly)
+// Security HTTP headers
 app.use(
   helmet({
     crossOriginResourcePolicy: false
@@ -39,12 +40,8 @@ const allowedOrigins = [
 
 const corsOptions = {
   origin: function (origin, callback) {
-    // Allow non-browser requests (mobile, curl, Postman)
     if (!origin) return callback(null, true);
-
     const cleanOrigin = origin.trim().replace(/\/+$/, '');
-
-    // Allow configured origins, all vercel.app deployments, and localhost
     if (
       allowedOrigins.includes(cleanOrigin) ||
       cleanOrigin.endsWith('.vercel.app') ||
@@ -54,8 +51,6 @@ const corsOptions = {
     ) {
       return callback(null, true);
     }
-
-    // Default permissive allow to prevent preflight blockage
     return callback(null, true);
   },
   credentials: true,
@@ -75,8 +70,36 @@ app.get('/', (req, res) => {
   res.json({
     message: 'Welcome to MediPulse Healthcare Management API',
     version: '1.0.0',
-    documentation: '/api/health'
+    documentation: '/api/health',
+    seeder: '/api/seed'
   });
+});
+
+// One-click HTTP database seeder (ideal for cloud environments like Render)
+app.get(['/api/seed', '/seed'], async (req, res) => {
+  try {
+    const result = await seedDatabase();
+    res.status(200).json({
+      success: true,
+      message: 'MediPulse database successfully populated with demo records!',
+      admin: {
+        email: 'admin@medipulse.com',
+        password: 'AdminPassword123',
+        role: 'admin'
+      },
+      patient: {
+        email: 'patient@medipulse.com',
+        password: 'PatientPass123',
+        role: 'user'
+      },
+      doctorsSeeded: result.doctorsCount
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: `Database seeding failed: ${error.message}`
+    });
+  }
 });
 
 // Mount routes under /api (standard REST convention)
@@ -105,6 +128,7 @@ if (require.main === module) {
     console.log(` MediPulse API Server running on port ${PORT}`);
     console.log(` Mode: ${process.env.NODE_ENV || 'development'}`);
     console.log(` Health check: http://localhost:${PORT}/api/health`);
+    console.log(` HTTP Seeder:  http://localhost:${PORT}/api/seed`);
     console.log(`===============================================`);
   });
 
